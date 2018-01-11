@@ -1,2 +1,3 @@
 # CS362-004-W2018
-CS 362. SOFTWARE ENGINEERING II Winter 2018 (Ecampus-Distance Education)
+HOLLY SWITZER SWITZERH https://github.com/holly12ann/CS362-004-W2018
+this my assignment-1 submission
