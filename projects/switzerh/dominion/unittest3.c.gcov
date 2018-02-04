@@ -1,0 +1,163 @@
+        -:    0:Source:unittest3.c
+        -:    0:Graph:unittest3.gcno
+        -:    0:Data:unittest3.gcda
+        -:    0:Runs:3
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <stdio.h>
+        -:    4:#include "rngs.h"
+        -:    5:#include <stdlib.h>
+        -:    6:#include <assert.h>
+        -:    7:#include <math.h>
+        -:    8:
+function main called 3 returned 100% blocks executed 81%
+        -:    9:int main (int argc, char** argv){
+        -:   10:    
+        -:   11:    //define variables
+        -:   12:    struct gameState* curState;
+        -:   13:    
+        -:   14:    //int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron};
+        -:   15:    //int testK[10] = {adventurer, adventurer, feast, feast, mine, remodel, smithy, village, baron};
+        -:   16:    
+        -:   17:    //int seed = 2;
+        -:   18:    //int curseCount = 0;
+        -:   19:    //int playerCount = 0;
+        3:   20:    int result = 0;
+        3:   21:    int fCount = 0;
+        -:   22:    
+        3:   23:    curState = newGame();
+        3:   24:    printf("\n********************************************************************\n");
+        3:   25:    printf("********************************************************************\n\n");
+        3:   26:    printf("                            UNIT TEST 3                             \n");
+        3:   27:    printf("                 Testing Function: isGameOver()                 \n\n");
+        3:   28:    printf("********************************************************************\n");
+        3:   29:    printf("********************************************************************\n\n\n");
+        -:   30:    
+        3:   31:    printf("********************* TEST 1: 3 provinces left *********************\n");
+        -:   32:    
+        3:   33:    curState->supplyCount[province]=3;
+      156:   34:    for (int i=0; i<25; i++){
+branch  0 taken 75
+branch  1 taken 3
+       75:   35:        curState->supplyCount[i]=1;
+       75:   36:    }
+        3:   37:    result = isGameOver(curState);
+        -:   38:    
+        3:   39:    printf("    Expected result: 0\n");
+        -:   40:    
+        3:   41:    if (result == 0) {
+branch  0 taken 3
+branch  1 taken 0
+        3:   42:        printf("    Actual result  : %d\n",result);
+        3:   43:        printf("    PASSED!\n");
+        3:   44:    }
+        -:   45:    else{
+    #####:   46:        printf("    Actual result  : %d\n",result);
+    #####:   47:        printf("    FAILED\n");
+        -:   48:        //increment fail count
+    #####:   49:        fCount++;
+        -:   50:    }
+        -:   51:    
+        3:   52:    printf("********************* TEST 2: 0 provinces left *********************\n");
+        -:   53:    
+        3:   54:    curState->supplyCount[province] = 0;
+        3:   55:    result = isGameOver(curState);
+        -:   56:    
+        3:   57:    printf("    Expected result: 1\n");
+        -:   58:    
+        3:   59:    if (result == 1) {
+branch  0 taken 3
+branch  1 taken 0
+        3:   60:        printf("    Actual result  : %d\n",result);
+        3:   61:        printf("    PASSED!\n");
+        3:   62:    }
+        -:   63:    else{
+    #####:   64:        printf("    Actual result  : %d\n",result);
+    #####:   65:        printf("    FAILED\n");
+        -:   66:        //increment fail count
+    #####:   67:        fCount++;
+        -:   68:    }
+        -:   69:    
+        3:   70:    printf("********************* TEST 3: -1 provinces left *********************\n");
+        -:   71:    
+        3:   72:    curState->supplyCount[province] = -1;
+        3:   73:    result = isGameOver(curState);
+        -:   74:    
+        3:   75:    printf("    Expected result: 1\n");
+        -:   76:    
+        3:   77:    if (result == 1) {
+branch  0 taken 0
+branch  1 taken 3
+    #####:   78:        printf("    Actual result  : %d\n",result);
+    #####:   79:        printf("    PASSED!\n");
+    #####:   80:    }
+        -:   81:    else{
+        3:   82:        printf("    Actual result  : %d\n",result);
+        3:   83:        printf("    FAILED\n");
+        -:   84:        //increment fail count
+        3:   85:        fCount++;
+        -:   86:    }
+        -:   87:    
+        3:   88:    printf("*********************** TEST 4: 3 empty piles ***********************\n");
+        -:   89:    
+        3:   90:    curState->supplyCount[province] = 3;
+       24:   91:    for (int i=0; i<3; i++){
+branch  0 taken 9
+branch  1 taken 3
+        9:   92:        curState->supplyCount[i]=0;
+        9:   93:    }
+        3:   94:    result = isGameOver(curState);
+        -:   95:    
+        3:   96:    printf("    Expected result: 1\n");
+        -:   97:    
+        3:   98:    if (result == 1) {
+branch  0 taken 3
+branch  1 taken 0
+        3:   99:        printf("    Actual result  : %d\n",result);
+        3:  100:        printf("    PASSED!\n");
+        3:  101:    }
+        -:  102:    else{
+    #####:  103:        printf("    Actual result  : %d\n",result);
+    #####:  104:        printf("    FAILED\n");
+        -:  105:        //increment fail count
+    #####:  106:        fCount++;
+        -:  107:    }
+        -:  108:    
+        3:  109:    printf("*********************** TEST 5: Negative supply count ***********************\n");
+        -:  110:    
+        3:  111:    curState->supplyCount[province] = 3;
+       24:  112:    for (int i=0; i<3; i++){
+branch  0 taken 9
+branch  1 taken 3
+        9:  113:        curState->supplyCount[i]=-1;
+        9:  114:    }
+        3:  115:    result = isGameOver(curState);
+        -:  116:    
+        3:  117:    printf("    Expected result: 1\n");
+        -:  118:    
+        3:  119:    if (result == 1) {
+branch  0 taken 0
+branch  1 taken 3
+    #####:  120:        printf("    Actual result  : %d\n",result);
+    #####:  121:        printf("    PASSED!\n");
+    #####:  122:    }
+        -:  123:    else{
+        3:  124:        printf("    Actual result  : %d\n",result);
+        3:  125:        printf("    FAILED\n");
+        -:  126:        //increment fail count
+        3:  127:        fCount++;
+        -:  128:    }
+        -:  129:     
+        3:  130:    printf("\n\n************************* TESTING COMPLETE *************************\n");
+        -:  131:    
+        3:  132:    if (fCount > 0){
+branch  0 taken 3
+branch  1 taken 0
+        3:  133:        printf("\n                      %d OF THE TESTS FAILED!\n\n", fCount);
+        3:  134:    }
+        -:  135:    else
+    #####:  136:        printf("\n                      ALL TESTS WERE PASSED!!\n\n");
+        3:  137:}
+        -:  138:
+        -:  139:

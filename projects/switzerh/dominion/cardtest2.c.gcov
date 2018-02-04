@@ -1,0 +1,72 @@
+        -:    0:Source:cardtest2.c
+        -:    0:Graph:cardtest2.gcno
+        -:    0:Data:cardtest2.gcda
+        -:    0:Runs:15
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <stdio.h>
+        -:    4:#include "rngs.h"
+        -:    5:#include <stdlib.h>
+        -:    6:#include <assert.h>
+        -:    7:#include <math.h>
+        -:    8:
+function main called 15 returned 100% blocks executed 75%
+        -:    9:int main (int argc, char** argv){
+        -:   10:    
+        -:   11:    //define variables
+        -:   12:    struct gameState* curState;
+        -:   13:    
+       15:   14:    int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron};
+        -:   15:    
+       15:   16:    int seed = 2;
+       15:   17:    int result = 0;
+       15:   18:    int fCount = 0;
+       15:   19:    int bonus = 0;
+        -:   20:    
+        -:   21:    
+       15:   22:    printf("\n********************************************************************\n");
+       15:   23:    printf("********************************************************************\n\n");
+       15:   24:    printf("                            CARD TEST 2                             \n");
+       15:   25:    printf("                      Testing Card: Adventurer                      \n\n");
+       15:   26:    printf("********************************************************************\n");
+       15:   27:    printf("********************************************************************\n\n\n");
+        -:   28:    
+       15:   29:    printf("\n************ TEST 1:  Verify card is used correctly  **************\n");
+        -:   30:    
+       15:   31:    curState = newGame();
+       15:   32:    initializeGame(2, k, seed, curState);
+        -:   33:    
+       15:   34:    gainCard(adventurer, curState, 2, 2);
+        -:   35:    
+       15:   36:    result = cardEffect(adventurer, 0, 0, 0, curState, 0, &bonus);
+        -:   37:    
+       15:   38:    printf("    Expected result: 0\n");
+        -:   39:    
+       15:   40:    if (result == 0) {
+branch  0 taken 15
+branch  1 taken 0
+       15:   41:        printf("    Actual result  : %d\n",result);
+       15:   42:        printf("    PASSED!\n");
+       15:   43:    }
+        -:   44:    else{
+    #####:   45:        printf("    Actual result  : %d\n",result);
+    #####:   46:        printf("    FAILED\n");
+        -:   47:        //increment fail count
+    #####:   48:        fCount++;
+        -:   49:    }
+        -:   50:    
+       15:   51:    printf("\n\n************************* TESTING COMPLETE *************************\n");
+        -:   52:    
+       15:   53:    if (fCount > 0){
+branch  0 taken 0
+branch  1 taken 15
+    #####:   54:        printf("\n                      %d OF THE TESTS FAILED!\n\n", fCount);
+    #####:   55:    }
+        -:   56:    else
+       15:   57:        printf("\n                      ALL TESTS WERE PASSED!!\n\n");
+       15:   58:}
+        -:   59:
+        -:   60:
+        -:   61:
+        -:   62:
