@@ -1,0 +1,105 @@
+        -:    0:Source:cardtest1.c
+        -:    0:Graph:cardtest1.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <stdio.h>
+        -:    4:#include "rngs.h"
+        -:    5:#include <stdlib.h>
+        -:    6:#include <assert.h>
+        -:    7:#include <math.h>
+        -:    8:
+function main called 0 returned 0% blocks executed 0%
+        -:    9:int main (int argc, char** argv){
+        -:   10:    
+        -:   11:    //define variables
+        -:   12:    struct gameState* curState;
+        -:   13:    
+    #####:   14:    int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron};
+        -:   15:    
+    #####:   16:    int seed = 2;
+    #####:   17:    int result = 0;
+    #####:   18:    int fCount = 0;
+    #####:   19:    int befHand =0;
+    #####:   20:    int aftHand =0;
+    #####:   21:    int bonus = 0;
+        -:   22:    
+        -:   23:    
+    #####:   24:    printf("\n********************************************************************\n");
+    #####:   25:    printf("********************************************************************\n\n");
+    #####:   26:    printf("                            CARD TEST 1                             \n");
+    #####:   27:    printf("                        Testing Card: Smithy                        \n\n");
+    #####:   28:    printf("********************************************************************\n");
+    #####:   29:    printf("********************************************************************\n\n\n");
+        -:   30:    
+    #####:   31:    printf("********************* TEST 1:  Gaining 3 cards *********************\n");
+        -:   32:    
+    #####:   33:    curState = newGame();
+    #####:   34:    initializeGame(2, k, seed, curState);
+        -:   35:    
+    #####:   36:    befHand = curState->handCount[2];
+    #####:   37:    printf("Handcount before gaining: %d\n", befHand);
+        -:   38:    
+    #####:   39:    gainCard(smithy, curState, 2, 2);
+        -:   40:    
+    #####:   41:    aftHand = curState->handCount[2];
+    #####:   42:    printf("Handcount after gaining: %d\n", aftHand);
+        -:   43:    
+    #####:   44:    cardEffect(smithy, 0, 0, 0, curState, 0, &bonus);
+    #####:   45:    aftHand = curState->handCount[2];
+    #####:   46:    printf("Handcount after effect: %d\n", aftHand);
+        -:   47:    
+    #####:   48:    printf("    Expected result: %d\n", befHand + 3);
+        -:   49:    
+    #####:   50:    if (result == befHand + 3) {
+branch  0 never executed
+branch  1 never executed
+    #####:   51:        printf("    Actual result  : %d\n",aftHand);
+    #####:   52:        printf("    PASSED!\n");
+    #####:   53:    }
+        -:   54:    else{
+    #####:   55:        printf("    Actual result  : %d\n",aftHand);
+    #####:   56:        printf("    FAILED\n");
+        -:   57:        //increment fail count
+    #####:   58:        fCount++;
+        -:   59:    }
+        -:   60: 
+    #####:   61:    printf("\n************ TEST 2:  Verify card is used correctly  **************\n");
+        -:   62:    
+    #####:   63:    curState = newGame();
+    #####:   64:    initializeGame(2, k, seed, curState);
+        -:   65:    
+    #####:   66:    gainCard(smithy, curState, 2, 2);
+        -:   67:    
+    #####:   68:    result = cardEffect(smithy, 0, 0, 0, curState, 0, &bonus);
+        -:   69:    
+    #####:   70:    printf("    Expected result: 0\n");
+        -:   71:    
+    #####:   72:    if (result == 0) {
+branch  0 never executed
+branch  1 never executed
+    #####:   73:        printf("    Actual result  : %d\n",result);
+    #####:   74:        printf("    PASSED!\n");
+    #####:   75:    }
+        -:   76:    else{
+    #####:   77:        printf("    Actual result  : %d\n",result);
+    #####:   78:        printf("    FAILED\n");
+        -:   79:        //increment fail count
+    #####:   80:        fCount++;
+        -:   81:    }
+        -:   82:    
+    #####:   83:    printf("\n\n************************* TESTING COMPLETE *************************\n");
+        -:   84:    
+    #####:   85:    if (fCount > 0){
+branch  0 never executed
+branch  1 never executed
+    #####:   86:        printf("\n                      %d OF THE TESTS FAILED!\n\n", fCount);
+    #####:   87:    }
+        -:   88:    else
+    #####:   89:        printf("\n                      ALL TESTS WERE PASSED!!\n\n");
+    #####:   90:}
+        -:   91:
+        -:   92:
+        -:   93:

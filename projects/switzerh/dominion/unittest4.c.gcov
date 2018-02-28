@@ -1,0 +1,146 @@
+        -:    0:Source:unittest4.c
+        -:    0:Graph:unittest4.gcno
+        -:    0:Data:-
+        -:    0:Runs:0
+        -:    0:Programs:0
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <stdio.h>
+        -:    4:#include "rngs.h"
+        -:    5:#include <stdlib.h>
+        -:    6:#include <assert.h>
+        -:    7:#include <math.h>
+        -:    8:
+function main called 0 returned 0% blocks executed 0%
+        -:    9:int main (int argc, char** argv){
+        -:   10:    
+        -:   11:    //define variables
+        -:   12:    struct gameState* curState;
+        -:   13:    
+    #####:   14:    int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron};
+        -:   15:    
+    #####:   16:    int seed = 2;
+    #####:   17:    int fCount = 0;
+        -:   18:    
+    #####:   19:    curState = newGame();
+    #####:   20:    initializeGame(2, k, seed, curState);
+        -:   21:    
+    #####:   22:    printf("\n********************************************************************\n");
+    #####:   23:    printf("********************************************************************\n\n");
+    #####:   24:    printf("                            UNIT TEST 4                             \n");
+    #####:   25:    printf("                 Testing Function: updateCoins()                 \n\n");
+    #####:   26:    printf("********************************************************************\n");
+    #####:   27:    printf("********************************************************************\n\n\n");
+        -:   28:    
+    #####:   29:    printf("*************** TEST 1: No cards in hand and 0 bonus ***************\n");
+        -:   30:    
+    #####:   31:    updateCoins(1, curState, 0);
+        -:   32:    
+    #####:   33:    printf("    Expected result: 0\n");
+        -:   34:    
+    #####:   35:    if (curState->coins == 0) {
+branch  0 never executed
+branch  1 never executed
+    #####:   36:        printf("    Actual result  : %d\n",curState->coins);
+    #####:   37:        printf("    PASSED!\n");
+    #####:   38:    }
+        -:   39:    else{
+    #####:   40:        printf("    Actual result  : %d\n",curState->coins);
+    #####:   41:        printf("    FAILED\n");
+        -:   42:        //increment fail count
+    #####:   43:        fCount++;
+        -:   44:    }
+        -:   45:    
+    #####:   46:    printf("\n****************** TEST 2:  Non existant player ********************\n");
+        -:   47:    
+    #####:   48:    updateCoins(6, curState, 8);
+        -:   49:    
+    #####:   50:    printf("    Expected result: 0\n");
+        -:   51:    
+    #####:   52:    if (curState->coins == 0) {
+branch  0 never executed
+branch  1 never executed
+    #####:   53:        printf("    Actual result  : %d\n",curState->coins);
+    #####:   54:        printf("    PASSED!\n");
+    #####:   55:    }
+        -:   56:    else{
+    #####:   57:        printf("    Actual result  : %d\n",curState->coins);
+    #####:   58:        printf("    FAILED\n");
+        -:   59:        //increment fail count
+    #####:   60:        fCount++;
+        -:   61:    }
+        -:   62:    
+    #####:   63:    printf("\n****** TEST 3:  3 coppers, 1 silver, 1 gold and 8 bonus coins ******\n");
+        -:   64:    
+    #####:   65:    curState->handCount[2]=5;
+        -:   66:    
+    #####:   67:    for (int i=0; i<5; i++){
+branch  0 never executed
+branch  1 never executed
+    #####:   68:        if (i<3){
+branch  0 never executed
+branch  1 never executed
+    #####:   69:            curState->hand[2][i]=copper;
+    #####:   70:        }
+    #####:   71:        else if (i<4){
+branch  0 never executed
+branch  1 never executed
+    #####:   72:            curState->hand[2][i]=silver;
+    #####:   73:        }
+    #####:   74:        else if (i<5){
+branch  0 never executed
+branch  1 never executed
+    #####:   75:            curState->hand[2][i]=gold;
+    #####:   76:        }
+    #####:   77:    }
+        -:   78:    
+    #####:   79:    updateCoins(2, curState, 8);
+        -:   80:    
+    #####:   81:    printf("    Expected result: 16\n");
+        -:   82:    
+    #####:   83:    if (curState->coins == 16) {
+branch  0 never executed
+branch  1 never executed
+    #####:   84:        printf("    Actual result  : %d\n",curState->coins);
+    #####:   85:        printf("    PASSED!\n");
+    #####:   86:    }
+        -:   87:    else{
+    #####:   88:        printf("    Actual result  : %d\n",curState->coins);
+    #####:   89:        printf("    FAILED\n");
+        -:   90:        //increment fail count
+    #####:   91:        fCount++;
+        -:   92:    }
+        -:   93:    
+    #####:   94:    printf("\n******************* TEST 4: Incorrect card count *******************\n");
+        -:   95:    
+    #####:   96:    curState->handCount[2]=4;
+        -:   97:    
+    #####:   98:    updateCoins(2, curState, 8);
+        -:   99:    
+    #####:  100:    printf("    Expected result: 16\n");
+        -:  101:    
+    #####:  102:    if (curState->coins == 16) {
+branch  0 never executed
+branch  1 never executed
+    #####:  103:        printf("    Actual result  : %d\n",curState->coins);
+    #####:  104:        printf("    PASSED!\n");
+    #####:  105:    }
+        -:  106:    else{
+    #####:  107:        printf("    Actual result  : %d\n",curState->coins);
+    #####:  108:        printf("    FAILED\n");
+        -:  109:        //increment fail count
+    #####:  110:        fCount++;
+        -:  111:    }
+        -:  112:    
+    #####:  113:    printf("\n\n************************* TESTING COMPLETE *************************\n");
+        -:  114:    
+    #####:  115:    if (fCount > 0){
+branch  0 never executed
+branch  1 never executed
+    #####:  116:        printf("\n                      %d OF THE TESTS FAILED!\n\n", fCount);
+    #####:  117:    }
+        -:  118:    else
+    #####:  119:        printf("\n                      ALL TESTS WERE PASSED!!\n\n");
+    #####:  120:}
+        -:  121:
+        -:  122:
