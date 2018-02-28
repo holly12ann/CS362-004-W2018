@@ -1245,7 +1245,6 @@ int cardEffectSmithy(int currentPlayer, struct gameState *state, int handPos){
     }
     		
   //discard card from hand
-  // bug #1 forgot to discard card after playing the card
   // discardCard(handPos, currentPlayer, state, 0);
   return 0;
 }
@@ -1255,7 +1254,6 @@ int cardEffectAdventurer(int currentPlayer, struct gameState *state, int handPos
   int z = 0;// this is the counter for the temp hand
   int temphand[MAX_HAND];
   int cardDrawn;
-  // bug #2: change <2 to <=2, draw 3 treasure cards
   while(drawntreasure<=2){
     if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
       shuffle(currentPlayer, state);
@@ -1297,7 +1295,6 @@ int cardEffectMine(int currentPlayer, struct gameState *state, int choice1, int 
 	  return -1;
 	}
 
-      //Bug #3: change the toFlag from 2 to 3
       gainCard(choice2, state, 3, currentPlayer);
 
       //discard card from hand
@@ -1323,7 +1320,6 @@ int cardEffectVillage(int currentPlayer, struct gameState *state, int handPos)
       //+2 Actions
       state->numActions = state->numActions + 2;
 			
-      // bug #4: trash the card instead of discard the card
       //discard played card from hand
       discardCard(handPos, currentPlayer, state, 1);
       return 0;
@@ -1332,7 +1328,6 @@ int cardEffectVillage(int currentPlayer, struct gameState *state, int handPos)
 int cardEffectRemodel(int currentPlayer, struct gameState *state, int choice1, int choice2, int handPos)
 {
       int j;
-      // bug #5: swap choice1 with choice2
       j = state->hand[currentPlayer][choice2];  //store card we will trash
 
       if ( (getCost(state->hand[currentPlayer][choice2]) + 2) > getCost(choice1) )

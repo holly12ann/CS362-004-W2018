@@ -1,0 +1,63 @@
+        -:    0:Source:randomtestadventurer.c
+        -:    0:Graph:randomtestadventurer.gcno
+        -:    0:Data:randomtestadventurer.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "rngs.h"
+        -:    3:#include <stdio.h>
+        -:    4:#include <math.h>
+        -:    5:#include <stdlib.h>
+        -:    6:#include <assert.h>
+        -:    7:#include <time.h>
+        -:    8:#include <string.h>
+        -:    9:
+        -:   10:
+function main called 1 returned 100% blocks executed 100%
+        -:   11:int main() {
+        1:   12:	srand(time(NULL));
+        1:   13:	int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron};
+        -:   14:		
+        -:   15:	int i, players, seed;
+        1:   16:	int bonus=0;
+        1:   17:	int player=0;
+        -:   18:	//struct gameState state;
+        1:   19:	struct gameState* curState = malloc(sizeof(struct gameState));
+        -:   20:
+        1:   21:	printf("********************************************************************\n");
+        1:   22:	printf("                 Running Random Adventurer Tests					\n");
+        1:   23:	printf("********************************************************************\n\n");
+        -:   24:
+    20002:   25:	for (i = 0; i < 10000; i++) {
+branch  0 taken 10000
+branch  1 taken 1
+        -:   26:
+        -:   27:		//generate usable random amount of players
+    10000:   28:		players = rand() % 3 + 2;
+        -:   29:
+        -:   30:		//generate random seed
+    10000:   31:		seed = rand();		
+        -:   32:
+        -:   33:		//initialize game
+    10000:   34:		initializeGame(players, k, seed, curState);
+        -:   35:
+        -:   36:		//find current player
+    10000:   37:		player = whoseTurn(curState);
+        -:   38:
+        -:   39:		//add card to hand
+    10000:   40:		gainCard(adventurer, curState, 2, player);
+        -:   41:
+        -:   42:		//test card
+    10000:   43:		cardEffect(adventurer, 0, 0, 0, curState, 0, &bonus);
+        -:   44:
+    10000:   45:	}
+        -:   46:
+        1:   47:	printf("********************************************************************\n");
+        1:   48:	printf("                        Testing Complete					 		\n");
+        1:   49:	printf("********************************************************************\n\n");
+        -:   50:
+        1:   51:}
+        -:   52:
+        -:   53:
+        -:   54:
+        -:   55:			

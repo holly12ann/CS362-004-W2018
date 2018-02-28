@@ -1,0 +1,87 @@
+        -:    0:Source:unittest2.c
+        -:    0:Graph:unittest2.gcno
+        -:    0:Data:unittest2.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <stdio.h>
+        -:    4:#include "rngs.h"
+        -:    5:#include <stdlib.h>
+        -:    6:#include <assert.h>
+        -:    7:#include <math.h>
+        -:    8:
+function main called 1 returned 100% blocks executed 72%
+        -:    9:int main (int argc, char** argv){
+        -:   10:    
+        -:   11:    //define variables
+        -:   12:    struct gameState* curState;
+        -:   13:    
+        1:   14:    int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron};
+        -:   15:    
+        1:   16:    int seed = 2;
+        1:   17:    int result = 0;
+        1:   18:    int fCount = 0;
+        -:   19:    
+        -:   20:    
+        1:   21:    printf("\n********************************************************************\n");
+        1:   22:    printf("********************************************************************\n\n");
+        1:   23:    printf("                            UNIT TEST 2                             \n");
+        1:   24:    printf("                    Testing Function:  shuffle()                    \n\n");
+        1:   25:    printf("********************************************************************\n");
+        1:   26:    printf("********************************************************************\n\n\n");
+        -:   27:    
+        1:   28:    printf("***************** TEST 1: Passing valid parameters *****************\n");
+        -:   29:    
+        1:   30:    curState = newGame();
+        1:   31:    initializeGame(2, k, seed, curState);
+        1:   32:    result = shuffle(1, curState);
+        -:   33:    
+        1:   34:    printf("    Expected result: 0\n");
+        -:   35:    
+        1:   36:    if (result == 0) {
+branch  0 taken 1
+branch  1 taken 0
+        1:   37:        printf("    Actual result  : %d\n",result);
+        1:   38:        printf("    PASSED!\n");
+        1:   39:    }
+        -:   40:    else{
+    #####:   41:        printf("    Actual result  : %d\n",result);
+    #####:   42:        printf("    FAILED\n");
+        -:   43:        //increment fail count
+    #####:   44:        fCount++;
+        -:   45:    }
+        -:   46:    
+        1:   47:    printf("\n**************** TEST 2:  Non existant player  ******************\n");
+        -:   48:    
+        1:   49:    printf("    Expected result: -1\n");
+        -:   50:    
+        -:   51:    //reset variables
+        1:   52:    curState = newGame();
+        1:   53:    result = shuffle(3, curState);
+        -:   54:    
+        1:   55:    if (result == -1) {
+branch  0 taken 1
+branch  1 taken 0
+        1:   56:        printf("    Actual result  : %d\n",result);
+        1:   57:        printf("    PASSED!\n");
+        1:   58:    }
+        -:   59:    else{
+    #####:   60:        printf("    Actual result  : %d\n",result);
+    #####:   61:        printf("    FAILED\n");
+        -:   62:        //increment fail count
+    #####:   63:        fCount++;
+        -:   64:    }
+        -:   65:    
+        1:   66:    printf("\n\n************************* TESTING COMPLETE *************************\n");
+        -:   67:    
+        1:   68:    if (fCount > 0){
+branch  0 taken 0
+branch  1 taken 1
+    #####:   69:        printf("\n                      %d OF THE TESTS FAILED!\n\n", fCount);
+    #####:   70:    }
+        -:   71:    else
+        1:   72:        printf("\n                      ALL TESTS WERE PASSED!!\n\n");
+        1:   73:}
+        -:   74:
+        -:   75:

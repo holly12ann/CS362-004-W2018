@@ -1,0 +1,73 @@
+        -:    0:Source:cardtest3.c
+        -:    0:Graph:cardtest3.gcno
+        -:    0:Data:cardtest3.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <stdio.h>
+        -:    4:#include "rngs.h"
+        -:    5:#include <stdlib.h>
+        -:    6:#include <assert.h>
+        -:    7:#include <math.h>
+        -:    8:
+function main called 1 returned 100% blocks executed 75%
+        -:    9:int main (int argc, char** argv){
+        -:   10:    
+        -:   11:    //define variables
+        -:   12:    struct gameState* curState;
+        -:   13:    
+        1:   14:    int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron};
+        -:   15:    
+        1:   16:    int seed = 2;
+        1:   17:    int result = 0;
+        1:   18:    int fCount = 0;
+        1:   19:    int bonus = 0;
+        -:   20:    
+        -:   21:    
+        1:   22:    printf("\n********************************************************************\n");
+        1:   23:    printf("********************************************************************\n\n");
+        1:   24:    printf("                            CARD TEST 3                             \n");
+        1:   25:    printf("                       Testing Card:  Village                       \n\n");
+        1:   26:    printf("********************************************************************\n");
+        1:   27:    printf("********************************************************************\n\n\n");
+        -:   28:    
+        1:   29:    printf("\n************ TEST 1:  Verify card is used correctly  **************\n");
+        -:   30:    
+        1:   31:    curState = newGame();
+        1:   32:    initializeGame(2, k, seed, curState);
+        -:   33:    
+        1:   34:    gainCard(village, curState, 2, 2);
+        -:   35:    
+        1:   36:    result = cardEffect(village, 0, 0, 0, curState, 0, &bonus);
+        -:   37:    
+        1:   38:    printf("    Expected result: 0\n");
+        -:   39:    
+        1:   40:    if (result == 0) {
+branch  0 taken 1
+branch  1 taken 0
+        1:   41:        printf("    Actual result  : %d\n",result);
+        1:   42:        printf("    PASSED!\n");
+        1:   43:    }
+        -:   44:    else{
+    #####:   45:        printf("    Actual result  : %d\n",result);
+    #####:   46:        printf("    FAILED\n");
+        -:   47:        //increment fail count
+    #####:   48:        fCount++;
+        -:   49:    }
+        -:   50:    
+        1:   51:    printf("\n\n************************* TESTING COMPLETE *************************\n");
+        -:   52:    
+        1:   53:    if (fCount > 0){
+branch  0 taken 0
+branch  1 taken 1
+    #####:   54:        printf("\n                      %d OF THE TESTS FAILED!\n\n", fCount);
+    #####:   55:    }
+        -:   56:    else
+        1:   57:        printf("\n                      ALL TESTS WERE PASSED!!\n\n");
+        1:   58:}
+        -:   59:
+        -:   60:
+        -:   61:
+        -:   62:
+        -:   63:

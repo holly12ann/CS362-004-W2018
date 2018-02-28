@@ -1,0 +1,182 @@
+        -:    0:Source:unittest1.c
+        -:    0:Graph:unittest1.gcno
+        -:    0:Data:unittest1.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <stdio.h>
+        -:    4:#include "rngs.h"
+        -:    5:#include <stdlib.h>
+        -:    6:#include <assert.h>
+        -:    7:#include <math.h>
+        -:    8:
+function main called 1 returned 100% blocks executed 72%
+        -:    9:int main (int argc, char** argv){
+        -:   10:    
+        -:   11:    //define variables
+        -:   12:    struct gameState* curState;
+        -:   13:    
+        1:   14:    int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron};
+        1:   15:    int testK[10] = {adventurer, adventurer, feast, feast, mine, remodel, smithy, village, baron};
+        -:   16:    
+        1:   17:    int seed = 2;
+        1:   18:    int curseCount = 0;
+        1:   19:    int playerCount = 0;
+        1:   20:    int result = 0;
+        1:   21:    int fCount = 0;
+        -:   22:    
+        1:   23:    curState = newGame();
+        1:   24:    printf("\n********************************************************************\n");
+        1:   25:    printf("********************************************************************\n\n");
+        1:   26:    printf("                            UNIT TEST 1                             \n");
+        1:   27:    printf("                 Testing Function: initializeGame()                 \n\n");
+        1:   28:    printf("********************************************************************\n");
+        1:   29:    printf("********************************************************************\n\n\n");
+        -:   30:    
+        1:   31:    printf("*********************** TEST 1: Zero Players ***********************\n");
+        -:   32:    
+        1:   33:    result = initializeGame(0, k, seed, curState);
+        -:   34:    
+        1:   35:    printf("    Expected result: -1\n");
+        -:   36:
+        1:   37:    if (result == -1) {
+branch  0 taken 1
+branch  1 taken 0
+        1:   38:        printf("    Actual result  : %d\n",result);
+        1:   39:        printf("    PASSED!\n");
+        1:   40:    }
+        -:   41:    else{
+    #####:   42:        printf("    Actual result  : %d\n",result);
+    #####:   43:        printf("    FAILED\n");
+        -:   44:        //increment fail count
+    #####:   45:        fCount++;
+        -:   46:    }
+        -:   47:    
+        1:   48:    printf("\n************* TEST 2:  5 Players (More than allowed) ***************\n");
+        -:   49:    
+        1:   50:    printf("    Expected result: -1\n");
+        -:   51:
+        -:   52:    //reset variables
+        1:   53:    curState = newGame();
+        1:   54:    result = 0;
+        1:   55:    result = initializeGame(5, k, seed, curState);
+        -:   56:    
+        1:   57:    if (result == -1) {
+branch  0 taken 1
+branch  1 taken 0
+        1:   58:        printf("    Actual result  : %d\n",result);
+        1:   59:        printf("    PASSED!\n");
+        1:   60:    }
+        -:   61:    else{
+    #####:   62:        printf("    Actual result  : %d\n",result);
+    #####:   63:        printf("    FAILED\n");
+        -:   64:        //increment fail count
+    #####:   65:        fCount++;
+        -:   66:    }
+        -:   67:    
+        1:   68:    printf("\n**************** TEST 3: Multiples in Kingdom Cards ****************\n");
+        -:   69:    
+        1:   70:    printf("    Expected result: -1\n");
+        -:   71:    
+        -:   72:    //reset variables
+        1:   73:    curState = newGame();
+        1:   74:    result = 0;
+        1:   75:    result = initializeGame(2, testK, seed, curState);
+        -:   76:    
+        1:   77:    if (result == -1) {
+branch  0 taken 1
+branch  1 taken 0
+        1:   78:        printf("    Actual result  : %d\n",result);
+        1:   79:        printf("    PASSED!\n");
+        1:   80:    }
+        -:   81:    else{
+    #####:   82:        printf("    Actual result  : %d\n",result);
+    #####:   83:        printf("    FAILED\n");
+        -:   84:        //increment fail count
+    #####:   85:        fCount++;
+        -:   86:    }
+        -:   87:    
+        1:   88:    printf("\n************** TEST 4:  Passing all useable variables **************\n");
+        -:   89:    
+        1:   90:    printf("    Expected result: 0\n");
+        -:   91:
+        -:   92:    //reset variables
+        1:   93:    curState = newGame();
+        1:   94:    result = 0;
+        1:   95:    result = initializeGame(2, k, seed, curState);
+        -:   96:    
+        1:   97:    if (result == -1) {
+branch  0 taken 0
+branch  1 taken 1
+    #####:   98:        printf("    Actual result  : %d\n",result);
+    #####:   99:        printf("    FAILED\n");
+        -:  100:        //increment fail count
+    #####:  101:        fCount++;
+    #####:  102:    }
+        -:  103:    else{
+        1:  104:        printf("    Actual result  : %d\n",result);
+        1:  105:        printf("    PASSED!\n");
+        -:  106:    }
+        -:  107:    
+        1:  108:    printf("\n*************** TEST 5: Confirming number of players ***************\n");
+        -:  109:    
+        1:  110:    printf("    Expected result: 2\n");
+        -:  111:    
+        -:  112:    //reset variables
+        1:  113:    curState = newGame();
+        1:  114:    result = 0;
+        1:  115:    result = initializeGame(2, k, seed, curState);
+        1:  116:    playerCount = curState->numPlayers;
+        -:  117:    
+        2:  118:    if (result == 0 && playerCount == 2){
+branch  0 taken 1
+branch  1 taken 0
+branch  2 taken 1
+branch  3 taken 0
+        1:  119:        printf("    Actual result  : %d\n",playerCount);
+        1:  120:        printf("    PASSED!\n");
+        1:  121:    }
+        -:  122:    else {
+    #####:  123:        printf("    Actual result  : %d\n",playerCount);
+    #####:  124:        printf("    FAILED\n");
+        -:  125:        //increment fail count
+    #####:  126:        fCount++;
+        -:  127:    }
+        -:  128:    
+        1:  129:    printf("\n**** TEST 6: Confirm correct count of curse cards for 2 players ****\n");
+        -:  130:    
+        1:  131:    printf("    Expected result: 10\n");
+        -:  132:    
+        -:  133:    //reset variables
+        1:  134:    curState = newGame();
+        1:  135:    result = 0;
+        1:  136:    result = initializeGame(2, k, seed, curState);
+        1:  137:    curseCount = curState->supplyCount[curse];
+        -:  138:    
+        2:  139:    if (result == 0 && curseCount == 10){
+branch  0 taken 1
+branch  1 taken 0
+branch  2 taken 1
+branch  3 taken 0
+        1:  140:        printf("    Actual result  : %d\n",curseCount);
+        1:  141:        printf("    PASSED!\n");
+        1:  142:    }
+        -:  143:    else {
+    #####:  144:        printf("    Actual result  : %d\n",curseCount);
+    #####:  145:        printf("    FAILED\n");
+        -:  146:        //increment fail count
+    #####:  147:        fCount++;
+        -:  148:    }
+        -:  149:    
+        1:  150:    printf("\n\n************************* TESTING COMPLETE *************************\n");
+        -:  151:    
+        1:  152:    if (fCount > 0){
+branch  0 taken 0
+branch  1 taken 1
+    #####:  153:        printf("\n                      %d OF THE TESTS FAILED!\n\n", fCount);
+    #####:  154:    }
+        -:  155:    else
+        1:  156:        printf("\n                      ALL TESTS WERE PASSED!!\n\n");
+        1:  157:}
+        -:  158:

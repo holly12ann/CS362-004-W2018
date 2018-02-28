@@ -1,0 +1,16 @@
+Bugs from unit testing
+	isGameOver() 
+		doesn't account for accidental negative provinces 
+		doesn't account for accidental negative supply counts 
+	updateCoins() 
+		doesn't check for unknown players 
+		doesn't check that hand count is correct 
+	smithy() 
+		hand count not correct 
+Bugs from manual debugging
+	cardEffectAdventurer()
+		draws 3 treasure cards instead of 2
+	cardEffectMine()
+		invalid flag, which is taken as flag 0 and will add to discard instead of added to hand
+
+There was nothing too different from the testing done on my own individual code compared to my group members code. Though when manually debugging my group members code, I was able to see where the bugs were introduced based on what the card functions were actually supposed to do.  

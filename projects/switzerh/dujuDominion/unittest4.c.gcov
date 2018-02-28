@@ -1,0 +1,146 @@
+        -:    0:Source:unittest4.c
+        -:    0:Graph:unittest4.gcno
+        -:    0:Data:unittest4.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include "dominion.h"
+        -:    2:#include "dominion_helpers.h"
+        -:    3:#include <stdio.h>
+        -:    4:#include "rngs.h"
+        -:    5:#include <stdlib.h>
+        -:    6:#include <assert.h>
+        -:    7:#include <math.h>
+        -:    8:
+function main called 1 returned 100% blocks executed 82%
+        -:    9:int main (int argc, char** argv){
+        -:   10:    
+        -:   11:    //define variables
+        -:   12:    struct gameState* curState;
+        -:   13:    
+        1:   14:    int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron};
+        -:   15:    
+        1:   16:    int seed = 2;
+        1:   17:    int fCount = 0;
+        -:   18:    
+        1:   19:    curState = newGame();
+        1:   20:    initializeGame(2, k, seed, curState);
+        -:   21:    
+        1:   22:    printf("\n********************************************************************\n");
+        1:   23:    printf("********************************************************************\n\n");
+        1:   24:    printf("                            UNIT TEST 4                             \n");
+        1:   25:    printf("                 Testing Function: updateCoins()                 \n\n");
+        1:   26:    printf("********************************************************************\n");
+        1:   27:    printf("********************************************************************\n\n\n");
+        -:   28:    
+        1:   29:    printf("*************** TEST 1: No cards in hand and 0 bonus ***************\n");
+        -:   30:    
+        1:   31:    updateCoins(1, curState, 0);
+        -:   32:    
+        1:   33:    printf("    Expected result: 0\n");
+        -:   34:    
+        1:   35:    if (curState->coins == 0) {
+branch  0 taken 1
+branch  1 taken 0
+        1:   36:        printf("    Actual result  : %d\n",curState->coins);
+        1:   37:        printf("    PASSED!\n");
+        1:   38:    }
+        -:   39:    else{
+    #####:   40:        printf("    Actual result  : %d\n",curState->coins);
+    #####:   41:        printf("    FAILED\n");
+        -:   42:        //increment fail count
+    #####:   43:        fCount++;
+        -:   44:    }
+        -:   45:    
+        1:   46:    printf("\n****************** TEST 2:  Non existant player ********************\n");
+        -:   47:    
+        1:   48:    updateCoins(6, curState, 8);
+        -:   49:    
+        1:   50:    printf("    Expected result: 0\n");
+        -:   51:    
+        1:   52:    if (curState->coins == 0) {
+branch  0 taken 0
+branch  1 taken 1
+    #####:   53:        printf("    Actual result  : %d\n",curState->coins);
+    #####:   54:        printf("    PASSED!\n");
+    #####:   55:    }
+        -:   56:    else{
+        1:   57:        printf("    Actual result  : %d\n",curState->coins);
+        1:   58:        printf("    FAILED\n");
+        -:   59:        //increment fail count
+        1:   60:        fCount++;
+        -:   61:    }
+        -:   62:    
+        1:   63:    printf("\n****** TEST 3:  3 coppers, 1 silver, 1 gold and 8 bonus coins ******\n");
+        -:   64:    
+        1:   65:    curState->handCount[2]=5;
+        -:   66:    
+       12:   67:    for (int i=0; i<5; i++){
+branch  0 taken 5
+branch  1 taken 1
+        5:   68:        if (i<3){
+branch  0 taken 3
+branch  1 taken 2
+        3:   69:            curState->hand[2][i]=copper;
+        3:   70:        }
+        2:   71:        else if (i<4){
+branch  0 taken 1
+branch  1 taken 1
+        1:   72:            curState->hand[2][i]=silver;
+        1:   73:        }
+        1:   74:        else if (i<5){
+branch  0 taken 1
+branch  1 taken 0
+        1:   75:            curState->hand[2][i]=gold;
+        1:   76:        }
+        5:   77:    }
+        -:   78:    
+        1:   79:    updateCoins(2, curState, 8);
+        -:   80:    
+        1:   81:    printf("    Expected result: 16\n");
+        -:   82:    
+        1:   83:    if (curState->coins == 16) {
+branch  0 taken 1
+branch  1 taken 0
+        1:   84:        printf("    Actual result  : %d\n",curState->coins);
+        1:   85:        printf("    PASSED!\n");
+        1:   86:    }
+        -:   87:    else{
+    #####:   88:        printf("    Actual result  : %d\n",curState->coins);
+    #####:   89:        printf("    FAILED\n");
+        -:   90:        //increment fail count
+    #####:   91:        fCount++;
+        -:   92:    }
+        -:   93:    
+        1:   94:    printf("\n******************* TEST 4: Incorrect card count *******************\n");
+        -:   95:    
+        1:   96:    curState->handCount[2]=4;
+        -:   97:    
+        1:   98:    updateCoins(2, curState, 8);
+        -:   99:    
+        1:  100:    printf("    Expected result: 16\n");
+        -:  101:    
+        1:  102:    if (curState->coins == 16) {
+branch  0 taken 0
+branch  1 taken 1
+    #####:  103:        printf("    Actual result  : %d\n",curState->coins);
+    #####:  104:        printf("    PASSED!\n");
+    #####:  105:    }
+        -:  106:    else{
+        1:  107:        printf("    Actual result  : %d\n",curState->coins);
+        1:  108:        printf("    FAILED\n");
+        -:  109:        //increment fail count
+        1:  110:        fCount++;
+        -:  111:    }
+        -:  112:    
+        1:  113:    printf("\n\n************************* TESTING COMPLETE *************************\n");
+        -:  114:    
+        1:  115:    if (fCount > 0){
+branch  0 taken 1
+branch  1 taken 0
+        1:  116:        printf("\n                      %d OF THE TESTS FAILED!\n\n", fCount);
+        1:  117:    }
+        -:  118:    else
+    #####:  119:        printf("\n                      ALL TESTS WERE PASSED!!\n\n");
+        1:  120:}
+        -:  121:
+        -:  122:
